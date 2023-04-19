@@ -4,7 +4,7 @@
     <title>Introduction to purrr</title>
     <meta charset="utf-8" />
     <meta name="author" content="Martin Frigaard" />
-    <meta name="date" content="2023-04-18" />
+    <meta name="date" content="2023-04-19" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <meta name="description" content="Intro to purrr"/>
@@ -54,7 +54,7 @@ class: title-slide, center, middle, inverse
 
 Written: January 09 2022
 
-Updated: April 18 2023
+Updated: April 19 2023
 
 ---
 class: left, top
@@ -317,7 +317,8 @@ my_list
 #&gt; [1] "bLOW"     "FOLloW"   "cOMMOn"   "ORiginAL" "UsUal"   
 #&gt; 
 #&gt; $sentences
-#&gt; [1] "HE TaKeS tHE oatH OF offICe EaCH mArcH." "THE OfficE pAINt waS A dUll, saD TAn."  
+#&gt; [1] "HE TaKeS tHE oatH OF offICe EaCH mArcH."
+#&gt; [2] "THE OfficE pAINt waS A dUll, saD TAn."  
 #&gt; [3] "faRMers CAmE iN TO ThREsH tHe OAT crOP."
 #&gt; 
 #&gt; $letters
@@ -407,7 +408,8 @@ A lot functions in R expect vectors, and a lot of vectors end up in lists...
 tolower(x = my_list$words)
 #&gt; [1] "blow"     "follow"   "common"   "original" "usual"
 tolower(x = my_list$sentences)
-#&gt; [1] "he takes the oath of office each march." "the office paint was a dull, sad tan."  
+#&gt; [1] "he takes the oath of office each march."
+#&gt; [2] "the office paint was a dull, sad tan."  
 #&gt; [3] "farmers came in to thresh the oat crop."
 tolower(x = my_list$letters)
 #&gt;  [1] "l" "y" "d" "p" "h" "e" "v" "m" "r" "z"
@@ -609,7 +611,8 @@ output_list
 #&gt; [1] "blow"     "follow"   "common"   "original" "usual"   
 #&gt; 
 #&gt; [[2]]
-#&gt; [1] "he takes the oath of office each march." "the office paint was a dull, sad tan."  
+#&gt; [1] "he takes the oath of office each march."
+#&gt; [2] "the office paint was a dull, sad tan."  
 #&gt; [3] "farmers came in to thresh the oat crop."
 #&gt; 
 #&gt; [[3]]
@@ -671,7 +674,8 @@ output_list
 #&gt; [1] "blow"     "follow"   "common"   "original" "usual"   
 #&gt; 
 #&gt; $sentences
-#&gt; [1] "he takes the oath of office each march." "the office paint was a dull, sad tan."  
+#&gt; [1] "he takes the oath of office each march."
+#&gt; [2] "the office paint was a dull, sad tan."  
 #&gt; [3] "farmers came in to thresh the oat crop."
 #&gt; 
 #&gt; $letters
@@ -858,7 +862,8 @@ lapply(X = my_list, FUN = tolower)
 #&gt; [1] "blow"     "follow"   "common"   "original" "usual"   
 #&gt; 
 #&gt; $sentences
-#&gt; [1] "he takes the oath of office each march." "the office paint was a dull, sad tan."  
+#&gt; [1] "he takes the oath of office each march."
+#&gt; [2] "the office paint was a dull, sad tan."  
 #&gt; [3] "farmers came in to thresh the oat crop."
 #&gt; 
 #&gt; $letters
@@ -1217,7 +1222,8 @@ purrr::map(.x = my_list, .f = tolower)
 #&gt; [1] "blow"     "follow"   "common"   "original" "usual"   
 #&gt; 
 #&gt; $sentences
-#&gt; [1] "he takes the oath of office each march." "the office paint was a dull, sad tan."  
+#&gt; [1] "he takes the oath of office each march."
+#&gt; [2] "the office paint was a dull, sad tan."  
 #&gt; [3] "farmers came in to thresh the oat crop."
 #&gt; 
 #&gt; $letters
@@ -1654,8 +1660,8 @@ head(nyt_local_pths)
 ```
 
 ```
-#&gt; [1] "dds-nyt/nyt7.csv"  "dds-nyt/nyt8.csv"  "dds-nyt/nyt9.csv"  "dds-nyt/nyt10.csv" "dds-nyt/nyt11.csv"
-#&gt; [6] "dds-nyt/nyt12.csv"
+#&gt; [1] "dds-nyt/nyt7.csv"  "dds-nyt/nyt8.csv"  "dds-nyt/nyt9.csv" 
+#&gt; [4] "dds-nyt/nyt10.csv" "dds-nyt/nyt11.csv" "dds-nyt/nyt12.csv"
 ```
 
 ---
@@ -2473,13 +2479,13 @@ nyt_data_proc |&gt; dplyr::count(proc_file_pth)
 #&gt; # A tibble: 7 × 2
 #&gt;   proc_file_pth                           n
 #&gt;   &lt;chr&gt;                               &lt;int&gt;
-#&gt; 1 dds-nyt/processed/2023-04-18-nyt10 452766
-#&gt; 2 dds-nyt/processed/2023-04-18-nyt11 478066
-#&gt; 3 dds-nyt/processed/2023-04-18-nyt12 396308
-#&gt; 4 dds-nyt/processed/2023-04-18-nyt13 786044
-#&gt; 5 dds-nyt/processed/2023-04-18-nyt7  452493
-#&gt; 6 dds-nyt/processed/2023-04-18-nyt8  463196
-#&gt; 7 dds-nyt/processed/2023-04-18-nyt9  459472
+#&gt; 1 dds-nyt/processed/2023-04-19-nyt10 452766
+#&gt; 2 dds-nyt/processed/2023-04-19-nyt11 478066
+#&gt; 3 dds-nyt/processed/2023-04-19-nyt12 396308
+#&gt; 4 dds-nyt/processed/2023-04-19-nyt13 786044
+#&gt; 5 dds-nyt/processed/2023-04-19-nyt7  452493
+#&gt; 6 dds-nyt/processed/2023-04-19-nyt8  463196
+#&gt; 7 dds-nyt/processed/2023-04-19-nyt9  459472
 ```
 ]
 
@@ -2524,30 +2530,30 @@ background-size: 7%
 ```
 #&gt; Rows: 452,766
 #&gt; Columns: 11
-#&gt; $ id            &lt;chr&gt; "dds-nyt/raw/nyt10.csv", "dds-nyt/raw/nyt10.csv", "dds-nyt/raw/nyt10.csv", "dds-ny…
-#&gt; $ age           &lt;dbl&gt; 59, 0, 19, 44, 30, 33, 41, 41, 0, 23, 28, 34, 0, 17, 33, 60, 71, 0, 0, 0, 43, 0, 0…
-#&gt; $ gender        &lt;dbl&gt; 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0…
-#&gt; $ impressions   &lt;dbl&gt; 4, 7, 5, 5, 4, 3, 1, 3, 9, 1, 4, 4, 7, 3, 7, 6, 6, 2, 7, 2, 6, 5, 5, 4, 2, 8, 5, 1…
-#&gt; $ clicks        &lt;dbl&gt; 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0…
-#&gt; $ signed_in     &lt;fct&gt; yes, no, yes, yes, yes, yes, yes, yes, no, yes, yes, yes, no, yes, yes, yes, yes, …
-#&gt; $ age_group     &lt;ord&gt; 45-65, &lt;18, 18-30, 30-44, 30-44, 30-44, 30-44, 30-44, &lt;18, 18-30, 18-30, 30-44, &lt;1…
-#&gt; $ ctr_rate      &lt;dbl&gt; 0.000, 0.143, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.111, 0.000, 0.000, 0.000…
-#&gt; $ female        &lt;fct&gt; no, yes, yes, no, no, no, yes, yes, yes, no, no, no, yes, yes, no, no, yes, yes, y…
-#&gt; $ file_nm       &lt;chr&gt; "nyt10", "nyt10", "nyt10", "nyt10", "nyt10", "nyt10", "nyt10", "nyt10", "nyt10", "…
-#&gt; $ proc_file_pth &lt;chr&gt; "dds-nyt/processed/2023-04-18-nyt10", "dds-nyt/processed/2023-04-18-nyt10", "dds-n…
+#&gt; $ id            &lt;chr&gt; "dds-nyt/raw/nyt10.csv", "dds-nyt/raw/nyt10.csv", "dds-n…
+#&gt; $ age           &lt;dbl&gt; 59, 0, 19, 44, 30, 33, 41, 41, 0, 23, 28, 34, 0, 17, 33,…
+#&gt; $ gender        &lt;dbl&gt; 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0,…
+#&gt; $ impressions   &lt;dbl&gt; 4, 7, 5, 5, 4, 3, 1, 3, 9, 1, 4, 4, 7, 3, 7, 6, 6, 2, 7,…
+#&gt; $ clicks        &lt;dbl&gt; 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+#&gt; $ signed_in     &lt;fct&gt; yes, no, yes, yes, yes, yes, yes, yes, no, yes, yes, yes…
+#&gt; $ age_group     &lt;ord&gt; 45-65, &lt;18, 18-30, 30-44, 30-44, 30-44, 30-44, 30-44, &lt;1…
+#&gt; $ ctr_rate      &lt;dbl&gt; 0.000, 0.143, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, …
+#&gt; $ female        &lt;fct&gt; no, yes, yes, no, no, no, yes, yes, yes, no, no, no, yes…
+#&gt; $ file_nm       &lt;chr&gt; "nyt10", "nyt10", "nyt10", "nyt10", "nyt10", "nyt10", "n…
+#&gt; $ proc_file_pth &lt;chr&gt; "dds-nyt/processed/2023-04-19-nyt10", "dds-nyt/processed…
 #&gt; Rows: 478,066
 #&gt; Columns: 11
-#&gt; $ id            &lt;chr&gt; "dds-nyt/raw/nyt11.csv", "dds-nyt/raw/nyt11.csv", "dds-nyt/raw/nyt11.csv", "dds-ny…
-#&gt; $ age           &lt;dbl&gt; 28, 51, 29, 20, 19, 0, 58, 42, 35, 44, 62, 20, 0, 0, 43, 0, 16, 74, 0, 83, 0, 0, 4…
-#&gt; $ gender        &lt;dbl&gt; 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0…
-#&gt; $ impressions   &lt;dbl&gt; 8, 5, 2, 4, 5, 3, 5, 6, 8, 4, 6, 4, 5, 4, 4, 5, 3, 2, 5, 4, 4, 5, 3, 6, 2, 10, 4, …
-#&gt; $ clicks        &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 1, 1, 0…
-#&gt; $ signed_in     &lt;fct&gt; yes, yes, yes, yes, yes, no, yes, yes, yes, yes, yes, yes, no, no, yes, no, yes, y…
-#&gt; $ age_group     &lt;ord&gt; 18-30, 45-65, 18-30, 18-30, 18-30, &lt;18, 45-65, 30-44, 30-44, 30-44, 45-65, 18-30, …
-#&gt; $ ctr_rate      &lt;dbl&gt; 0.000, 0.000, 0.000, 0.000, 0.000, 0.333, 0.200, 0.000, 0.000, 0.000, 0.000, 0.000…
-#&gt; $ female        &lt;fct&gt; no, yes, no, no, yes, yes, yes, yes, no, yes, yes, yes, yes, yes, yes, yes, yes, y…
-#&gt; $ file_nm       &lt;chr&gt; "nyt11", "nyt11", "nyt11", "nyt11", "nyt11", "nyt11", "nyt11", "nyt11", "nyt11", "…
-#&gt; $ proc_file_pth &lt;chr&gt; "dds-nyt/processed/2023-04-18-nyt11", "dds-nyt/processed/2023-04-18-nyt11", "dds-n…
+#&gt; $ id            &lt;chr&gt; "dds-nyt/raw/nyt11.csv", "dds-nyt/raw/nyt11.csv", "dds-n…
+#&gt; $ age           &lt;dbl&gt; 28, 51, 29, 20, 19, 0, 58, 42, 35, 44, 62, 20, 0, 0, 43,…
+#&gt; $ gender        &lt;dbl&gt; 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+#&gt; $ impressions   &lt;dbl&gt; 8, 5, 2, 4, 5, 3, 5, 6, 8, 4, 6, 4, 5, 4, 4, 5, 3, 2, 5,…
+#&gt; $ clicks        &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,…
+#&gt; $ signed_in     &lt;fct&gt; yes, yes, yes, yes, yes, no, yes, yes, yes, yes, yes, ye…
+#&gt; $ age_group     &lt;ord&gt; 18-30, 45-65, 18-30, 18-30, 18-30, &lt;18, 45-65, 30-44, 30…
+#&gt; $ ctr_rate      &lt;dbl&gt; 0.000, 0.000, 0.000, 0.000, 0.000, 0.333, 0.200, 0.000, …
+#&gt; $ female        &lt;fct&gt; no, yes, no, no, yes, yes, yes, yes, no, yes, yes, yes, …
+#&gt; $ file_nm       &lt;chr&gt; "nyt11", "nyt11", "nyt11", "nyt11", "nyt11", "nyt11", "n…
+#&gt; $ proc_file_pth &lt;chr&gt; "dds-nyt/processed/2023-04-19-nyt11", "dds-nyt/processed…
 ```
 ]
 
@@ -2658,13 +2664,13 @@ fs::dir_tree("dds-nyt/", pattern = "csv$")
 ```
 #&gt; dds-nyt/
 #&gt; ├── processed
-#&gt; │   ├── 2023-04-18-nyt10.csv
-#&gt; │   ├── 2023-04-18-nyt11.csv
-#&gt; │   ├── 2023-04-18-nyt12.csv
-#&gt; │   ├── 2023-04-18-nyt13.csv
-#&gt; │   ├── 2023-04-18-nyt7.csv
-#&gt; │   ├── 2023-04-18-nyt8.csv
-#&gt; │   └── 2023-04-18-nyt9.csv
+#&gt; │   ├── 2023-04-19-nyt10.csv
+#&gt; │   ├── 2023-04-19-nyt11.csv
+#&gt; │   ├── 2023-04-19-nyt12.csv
+#&gt; │   ├── 2023-04-19-nyt13.csv
+#&gt; │   ├── 2023-04-19-nyt7.csv
+#&gt; │   ├── 2023-04-19-nyt8.csv
+#&gt; │   └── 2023-04-19-nyt9.csv
 #&gt; └── raw
 #&gt;     ├── nyt10.csv
 #&gt;     ├── nyt11.csv
