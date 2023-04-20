@@ -39,7 +39,7 @@ layout: true
 
 &lt;!-- this adds the link footer to all slides, depends on footer-small class in css--&gt;
 
-&lt;div class="footer-small"&gt;&lt;span&gt;https://github.com/mjfrigaard/pdg&lt;/span&gt;&lt;/div&gt;
+&lt;div class="footer-small"&gt;&lt;span&gt;https://github.com/paradigmdatagroup/pdg&lt;/span&gt;&lt;/div&gt;
 
 ---
 name: title-slide
@@ -1568,7 +1568,7 @@ background-size: 7%
 
 ## Downloading files
 
-&gt; "*I need to download multiple files (from separate URLS)*" - [Link to Github repo](https://github.com/mjfrigaard/dds-data)
+&gt; "*I need to download multiple files (from separate URLS)*" - [Link to Github repo](https://github.com/paradigmdatagroup/dds-data)
 
 --
 
@@ -1774,7 +1774,7 @@ background-size: 7%
 .code80[
 
 ```r
-walk2(
+purrr::walk2(
   .x = nyt_file_urls, .y = nyt_local_pths, # inputs
   .f =  download.file, # function
   .progress = TRUE, quiet = TRUE # additional arguments
@@ -1960,7 +1960,13 @@ fs::dir_tree("dds-nyt/raw", type = "any")
 
 ```
 #&gt; dds-nyt/raw
-#&gt; └── nyt10.csv
+#&gt; ├── nyt10.csv
+#&gt; ├── nyt11.csv
+#&gt; ├── nyt12.csv
+#&gt; ├── nyt13.csv
+#&gt; ├── nyt7.csv
+#&gt; ├── nyt8.csv
+#&gt; └── nyt9.csv
 ```
 
 ]
@@ -2043,6 +2049,7 @@ Supply the output from `list.files()` directly to `walk()` and include a pattern
 #&gt; ├── nyt7.csv
 #&gt; ├── nyt8.csv
 #&gt; ├── nyt9.csv
+#&gt; ├── processed
 #&gt; └── raw
 ```
 
@@ -2072,6 +2079,14 @@ purrr::walk(
 
 ```
 #&gt; dds-nyt/
+#&gt; ├── processed
+#&gt; │   ├── 2023-04-19-nyt10.csv
+#&gt; │   ├── 2023-04-19-nyt11.csv
+#&gt; │   ├── 2023-04-19-nyt12.csv
+#&gt; │   ├── 2023-04-19-nyt13.csv
+#&gt; │   ├── 2023-04-19-nyt7.csv
+#&gt; │   ├── 2023-04-19-nyt8.csv
+#&gt; │   └── 2023-04-19-nyt9.csv
 #&gt; └── raw
 #&gt;     ├── nyt10.csv
 #&gt;     ├── nyt11.csv
@@ -2156,7 +2171,7 @@ nyt_data_processing &lt;- function(nyt_csv) {
   if (isFALSE(identical(x = orig_nms, y = nyt_nms))) {
     cli::cli_abort("these data don't have the correct columns!")
   } else {
-    nyt_proc &lt;- nyt_csv |&gt; dplyr::mutate(age_group = case_when( 
+    nyt_proc &lt;- nyt_csv |&gt; dplyr::mutate(age_group = dplyr::case_when( 
             # create age_group variable
               Age &lt; 18 ~ "&lt;18", Age &gt;= 18 &amp; Age &lt; 30 ~ "18-30", Age &gt;= 30 &amp; Age &lt; 45 ~ "30-44", 
               Age &gt;= 45 &amp; Age &lt; 65 ~ "45-65", Age &gt;= 65 ~ "65+"), 
@@ -2165,10 +2180,10 @@ nyt_data_processing &lt;- function(nyt_csv) {
           # create CTR variable
           ctr_rate = round(x = Clicks/Impressions, digits = 3),
           # create new Female variable
-          female = case_when(Gender == 0 ~ "yes", Gender == 1 ~ "no", TRUE ~ NA_character_),
+          female = dplyr::case_when(Gender == 0 ~ "yes", Gender == 1 ~ "no", TRUE ~ NA_character_),
           # factor female (un-ordered)
           female = factor(female, levels = c("no", "yes")),
-          Signed_In = case_when(Signed_In == 0 ~ "no", Signed_In == 1 ~ "yes", TRUE ~ NA_character_),
+          Signed_In = dplyr::case_when(Signed_In == 0 ~ "no", Signed_In == 1 ~ "yes", TRUE ~ NA_character_),
           # factor Signed_In (un-ordered) &amp; format columns
           Signed_In = factor(Signed_In, levels = c("no", "yes"))) |&gt; janitor::clean_names() 
   }
@@ -2258,7 +2273,8 @@ background-size: 7%
 #&gt;   .. ..   Gender = col_double(),
 #&gt;   .. ..   Impressions = col_double(),
 #&gt;   .. ..   Clicks = col_double(),
-#&gt;   .. ..   Signed_In = col_double()
+#&gt;   .. ..   Signed_In = col_double(),
+#&gt;   .. ..   .delim = ","
 #&gt;   .. .. )
 #&gt;   ..- attr(*, "problems")=&lt;externalptr&gt;
 ```
@@ -2306,7 +2322,7 @@ We can see the variables have been wrangled by the `nyt_data_processing()` funct
 
 ```
 #&gt; List of 1
-#&gt;  $ dds-nyt/raw/nyt10.csv: tibble [452,766 × 8] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ dds-nyt/raw/nyt10.csv: spc_tbl_ [452,766 × 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 #&gt;   ..$ age        : num [1:452766] 59 0 19 44 30 33 41 41 0 23 ...
 #&gt;   ..$ gender     : num [1:452766] 1 0 0 1 1 1 0 0 0 1 ...
 #&gt;   ..$ impressions: num [1:452766] 4 7 5 5 4 3 1 3 9 1 ...
@@ -2315,6 +2331,16 @@ We can see the variables have been wrangled by the `nyt_data_processing()` funct
 #&gt;   ..$ age_group  : Ord.factor w/ 5 levels "&lt;18"&lt;"18-30"&lt;..: 4 1 2 3 3 3 3 3 1 2 ...
 #&gt;   ..$ ctr_rate   : num [1:452766] 0 0.143 0 0 0 0 0 0 0.111 0 ...
 #&gt;   ..$ female     : Factor w/ 2 levels "no","yes": 1 2 2 1 1 1 2 2 2 1 ...
+#&gt;   ..- attr(*, "spec")=
+#&gt;   .. .. cols(
+#&gt;   .. ..   Age = col_double(),
+#&gt;   .. ..   Gender = col_double(),
+#&gt;   .. ..   Impressions = col_double(),
+#&gt;   .. ..   Clicks = col_double(),
+#&gt;   .. ..   Signed_In = col_double(),
+#&gt;   .. ..   .delim = ","
+#&gt;   .. .. )
+#&gt;   ..- attr(*, "problems")=&lt;externalptr&gt;
 ```
 ]
 
@@ -2512,7 +2538,7 @@ In this first method, I’ll use the `base::split()` function to split `nyt_data
 ```r
 split(x = nyt_data_proc, f = nyt_data_proc$proc_file_pth) |&gt;
   utils::head(2) |&gt; 
-  purrr::walk(.f = glimpse)
+  purrr::walk(.f = dplyr::glimpse)
 ```
 
 
@@ -2628,7 +2654,7 @@ I can export the data to `proc_pths` using the standard syntax:
 
 ```r
 # iterate with .f
-walk2(.x = by_proc_pths, .y = proc_pths, .f = vroom::vroom_write, delim = ",")
+purrr::walk2(.x = by_proc_pths, .y = proc_pths, .f = vroom::vroom_write, delim = ",")
 ```
 ]
 
@@ -2641,7 +2667,7 @@ Or with pipes as an anonymous function:
 ```r
 nyt_data_proc |&gt; 
   split(nyt_data_proc$proc_file_pth) |&gt; 
-  walk2(.y = proc_pths, 
+  purrr::walk2(.y = proc_pths, 
     \(x, y)
     vroom::vroom_write(x = x, 
       file = y,  delim = ","))
